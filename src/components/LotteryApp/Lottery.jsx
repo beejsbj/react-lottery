@@ -102,7 +102,7 @@ export default function Lottery(props) {
   }
 
   return (
-    <lottery-module className="slide-in-right">
+    <lottery-module class="slide-in-right">
       <form>
         <ul>
           {dials.map((dial) => (

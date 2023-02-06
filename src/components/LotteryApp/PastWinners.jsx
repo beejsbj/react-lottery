@@ -1,6 +1,6 @@
 export default function PastWinners() {
   return (
-    <past-card className="slide-in-left">
+    <past-card class="slide-in-left">
       <h2 className="teaser-voice">past winners</h2>
       <ol>
         <li className="attention-voice"> $335.334 </li>

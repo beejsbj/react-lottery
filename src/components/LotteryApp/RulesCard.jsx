@@ -1,6 +1,6 @@
 export default function RulesCard() {
   return (
-    <rules-card className="slide-in-left">
+    <rules-card class="slide-in-left">
       <h2 className="attention-voice">RULES</h2>
       <ol>
         <li> Select 5 numbers or ROLL if Lazy </li>

@@ -11,7 +11,7 @@ export default function BidCard(props) {
   }
 
   return (
-    <bid-card className="slide-in-left">
+    <bid-card class="slide-in-left">
       <form className="bid-form" onSubmit={submitHandler}>
         <label className="teaser-voice" htmlFor="user-bid">
           make your bid
