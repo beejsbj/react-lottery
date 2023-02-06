@@ -127,7 +127,7 @@ past-card h2 {
     gap: 30px;
   }
   rules-card {
-    grid-row: 3 / 5;
+    /* grid-row: 3 / 5; */
   }
 }
 
