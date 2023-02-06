@@ -1,0 +1,46 @@
+@import "preset.css";
+@import "setup.css";
+@import "settings.css";
+@import "developer-styles.css";
+@import "structure.css";
+@import "typography.css";
+@import "animation.css";
+@import "components.css";
+@import "forms.css";
+@import "modules.css";
+
+/* S ections and more stuff */
+
+/* then other contextual styles */
+body {
+  background-color: var(--paper);
+  background-image: url("https://media.discordapp.net/attachments/549703400791605260/1019094503904247828/unknown.png");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* background-blend-mode: multiply; */
+  overflow-x: hidden;
+  padding-bottom: 250px;
+}
+@media (max-width: 925px) {
+  body {
+    background-size: cover;
+    background-position: center center;
+  }
+}
+.my-fantastic-image {
+  max-width: 300px;
+  border-bottom-right-radius: 30px;
+}
+
+video {
+  object-fit: cover;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -10;
+  mix-blend-mode: multiply;
+}
