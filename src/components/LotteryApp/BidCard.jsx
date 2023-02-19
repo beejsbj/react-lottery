@@ -1,43 +1,46 @@
 import { useState } from "react";
 
 export default function BidCard(props) {
-  const [ticket, setTicket] = useState(0);
-  function ticketHandler(event) {
-    setTicket(event.target.value);
-  }
 
-  function submitHandler(event) {
-    event.preventDefault();
-    //  setTicket(Number(ticket).toFixed(2));
+
+  function ticketDecrement() {
+	var ticket = props.ticket - 1
+	if (ticket < 0){
+		ticket = 0
+	}
+	props.setTicket(ticket)
+
+  }
+  function ticketIncrement() {
+	var ticket = props.ticket + 1
+	props.setTicket(ticket)
   }
 
   return (
     <bid-card class="slide-in-left">
-      <form className="bid-form" onSubmit={submitHandler}>
-        <label className="teaser-voice" htmlFor="user-bid">
-          make your bid
-        </label>
-        <input
-          id="user-bid"
-          type="number"
-          min="1"
-          max="100"
-          placeholder="ticket"
-          step="1"
-          value={ticket}
-          onChange={ticketHandler}
-        />
-        {/* <button className="button">BID</button> */}
-      </form>
+      <ticket-card>
+          <h2 className="teaser-voice">
+            Buy your Tickets
+          </h2>
+          <div>
+				<button className="minus button attention-voice" onClick={ticketDecrement}>
+				﹣
+				</button>
+				<p className="loud-voice heartbeat">{props.ticket}</p>
+				<button className="plus button attention-voice" onClick={ticketIncrement}>
+				＋
+				</button>
+			 </div>
+      </ticket-card>
       <text-content>
         <h2 className="teaser-voice">current bid</h2>
-        <output
+        <p
           htmlFor="user-bid"
           id="current-bid"
-          className="attention-voice heartbeat"
+          className="loud-voice heartbeat"
         >
           Ξ {props.bid}
-        </output>
+        </p>
       </text-content>
     </bid-card>
   );
