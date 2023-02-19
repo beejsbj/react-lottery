@@ -29,11 +29,7 @@
 	text-transform: capitalize;
 }
 
-@media (min-width:  1500px){
-	.attention-voice {
-		font-size: clamp(1.25rem, calc(0.57rem + 3.41vw), 3.00rem);
-	}
-}
+
 
 .notice-voice {
 	font-family: 'expose', sans-serif;
