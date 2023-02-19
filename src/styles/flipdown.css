@@ -296,9 +296,9 @@
 @media (min-width: 1180px) {
   .flipdown {
     position: absolute;
-    top: 10px;
-    right: -5%;
-    transform: scale(0.5) rotate(20deg);
+    top: -20px;
+    left: -5%;
+    transform: scale(0.5) rotate(-20deg);
   }
   .rotor-group:nth-of-type(1) {
     position: absolute;
@@ -314,9 +314,9 @@
   }
   .rotor-group:nth-of-type(3) {
     position: absolute;
-    top: 200%;
+    top: 250%;
     left: 72%;
-    transform: translate(-50%, -50%) scale(1.1) rotate(-10deg);
+    transform: translate(-50%, -50%) scale(1.1) rotate(10deg);
   }
 
   .rotor-group:nth-of-type(4) {
@@ -327,12 +327,12 @@
   }
 }
 
-@media (min-width: 1500px) {
+@media (min-width: 1180px) {
   .flipdown {
     position: relative;
     top: initial;
     right: initial;
-    transform: scale(1) rotate(0);
+    transform: scale(1) rotate(-10deg);
   }
 }
 

@@ -1,13 +1,14 @@
 import { useState } from "react";
 
 export default function BidCard(props) {
-  function bidHandler(event) {
-    props.setBid(event.target.value);
+  const [ticket, setTicket] = useState(0);
+  function ticketHandler(event) {
+    setTicket(event.target.value);
   }
 
   function submitHandler(event) {
     event.preventDefault();
-    props.setBid(Number(props.bid).toFixed(2));
+    //  setTicket(Number(ticket).toFixed(2));
   }
 
   return (
@@ -20,10 +21,11 @@ export default function BidCard(props) {
           id="user-bid"
           type="number"
           min="1"
-          placeholder="$$$"
-          step="0.01"
-          value={props.bid}
-          onChange={bidHandler}
+          max="100"
+          placeholder="ticket"
+          step="1"
+          value={ticket}
+          onChange={ticketHandler}
         />
         {/* <button className="button">BID</button> */}
       </form>
@@ -34,7 +36,7 @@ export default function BidCard(props) {
           id="current-bid"
           className="attention-voice heartbeat"
         >
-          $ {props.bid}
+          Ξ {props.bid}
         </output>
       </text-content>
     </bid-card>

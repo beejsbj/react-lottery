@@ -7,22 +7,60 @@ import PastWinners from "./components/LotteryApp/PastWinners";
 
 import { useState } from "react";
 
+import {
+  useAccount,
+  useConnect,
+  useContract,
+  useContractRead,
+  useContractWrite,
+  useNetwork,
+  useWaitForTransaction,
+} from "wagmi";
+
+import { BigNumber, ethers } from "ethers";
+
+import tokenContract from "./contracts/lottery.json";
+
 function App() {
-  const [bid, setBid] = useState(0);
+  const { data, isError, isLoading, isFetched } = useContractRead({
+    abi: tokenContract,
+    address: "0x0bebc62c4133ff21c4ce8593f6b2fcf56c071533",
+    functionName: "pot",
+  });
+
+  if (!isFetched) {
+    const potWei = ethers.BigNumber.from(data);
+    const pot = ethers.utils.formatEther(potWei);
+  }
+  const pot = 5;
+
+  const [bid, setBid] = useState(pot);
+
+  const contractConfig = {
+    addressOrName: 0x0bebc62c4133ff21c4ce8593f6b2fcf56c071533,
+    contractInterface: tokenContract,
+  };
+
+  const { isConnected } = useAccount();
 
   return (
     <div className="App">
       <main className="page-content">
         <section className="page-section">
           <ConnectButton />
-          <inner-column>
-            <h1 className="loud-voice slide-in-top">Lottery. api3</h1>
-            <Lottery bid={bid} setBid={setBid} />
-            <BidCard bid={bid} setBid={setBid} />
-            <PastWinners />
-            <RulesCard />
-            <Flipdown />
-          </inner-column>
+          {isConnected && (
+            <inner-column>
+              <h1 className="loud-voice slide-in-top">Lottery. api3</h1>
+              <Lottery bid={bid} setBid={setBid} />
+              <BidCard bid={bid} setBid={setBid} />
+              <PastWinners />
+              <RulesCard />
+              <Flipdown
+                useContractRead={useContractRead}
+                tokenContract={tokenContract}
+              />
+            </inner-column>
+          )}
         </section>
       </main>
       <div className="final-result hide"></div>

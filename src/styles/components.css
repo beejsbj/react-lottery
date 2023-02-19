@@ -79,34 +79,6 @@
   background-color: var(--white);
   color: var(--black);
 }
-
-.button.connect {
-  background-color: var(--white);
-  color: var(--black);
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 99999;
-  /* border-radius: 5px; */
-}
-
-.button.connect .metamask-icon {
-  max-width: 20px;
-}
-
-@media (min-width: 1300px) {
-  .button.connect {
-    transform: rotate(-45deg);
-    font-size: 5rem;
-    top: 5%;
-    left: 0%;
-  }
-
-  .button.connect .metamask-icon {
-    max-width: 40px;
-  }
-}
-
 .button.submit:hover {
   background-color: var(--color);
 }
@@ -114,6 +86,65 @@
   background-color: yellow;
 }
 
-.button.connect:hover {
+
+/* rainbowkit styling */
+
+.connect-wrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 99999;
+}
+
+.connect-wrapper button {
+  color: var(--black);
+  font-family: "expose", "Luckiest Guy", cursive;
+  background-color: var(--white);
+}
+.connect-wrapper button:hover {
   background-color: hsla(29, 85%, 52%, 1);
+}
+
+@media (min-width: 1300px) {
+  .connect-wrapper button {
+    transform: rotate(-45deg);
+    font-size: 5rem;
+  }
+}
+
+.wallet-wrapper {
+  background-color: var(--paper);
+
+  position: relative;
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.wallet-wrapper button {
+  font-family: "Luckiest Guy", cursive;
+  color: var(--white);
+  font-size: 1rem;
+  align-items: flex-end;
+}
+
+.wallet-wrapper button:hover {
+  background-color: var(--black);
+
+  /* background-image: conic-gradient(
+	hsla(231, 20%, 47%, 1) 100deg,
+	hsla(233, 27%, 37%, 1.00) 100deg 180deg,
+	hsla(231, 20%, 47%, 1.00) 180deg 260deg,
+	hsla(227, 22%, 62%, 1) 260deg 360deg
+ ); */
+}
+
+.wallet-wrapper picture {
+  border-radius: 50%;
+  overflow: hidden;
+  width: 1.5em;
+}
+
+.wallet-wrapper .balance {
+  color: hsla(29, 85%, 52%, 1)
 }

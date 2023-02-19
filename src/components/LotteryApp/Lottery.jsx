@@ -1,7 +1,16 @@
+import Loading from "./Loading.jsx";
 import { useState, useEffect } from "react";
+import { Howl, Howler } from "howler";
+import { useContractWrite } from "wagmi";
+import tokenContract from "../../contracts/lottery.json";
+// import { BigNumber, ethers } from "ethers";
 
 export default function Lottery(props) {
   const max = 5; //total number of dials to check
+
+  var sound = new Howl({
+    src: ["/click.wav"],
+  });
 
   var dialsArr = Array.from(Array(50).keys());
   dialsArr = dialsArr.map((dial) => {
@@ -60,6 +69,7 @@ export default function Lottery(props) {
 
   //event handler
   function toggleChecked(number, event) {
+    sound.play();
     if (event.target.checked && !maxLimit()) {
       alert("Can only Select " + max);
       return;
@@ -73,19 +83,45 @@ export default function Lottery(props) {
     setDials(updatedDials);
   }
 
-  function handleSubmit(event) {
+//   const {
+//     data: lotteryData,
+//     isError,
+//     isLoading,
+//     write: submitBid,
+//   } = useContractWrite({
+//     abi: tokenContract,
+//     mode: "recklesslyUnprepared",
+//     address: "0x0bebc62c4133ff21c4ce8593f6b2fcf56c071533",
+
+//     functionName: "enter",
+//     overrides: {
+//       value: ethers.utils.parseEther("0.0001"),
+//     },
+//   });
+
+  async function handleSubmit(event) {
     event.preventDefault();
     const checked = dials.filter((dial) => dial.checked);
-    props.setBid(Number(props.bid).toFixed(2));
+
+    var numbersString = "";
+
+    checked.forEach((dial) => {
+      numbersString += dial.number;
+    });
 
     if (checked.length < max) {
       alert("Please select atleast 5");
     }
-    if (props.bid < 1) {
-      alert("Please Make a Bid");
-    }
-    console.log("Numbers", checked);
-    console.log("Current Total", props.bid);
+    //  if (props.bid < 1) {
+    //    alert("Please Make a Bid");
+    //  }
+
+    //  const bigNumberString = ethers.BigNumber.from(numbersString);
+    //  console.log(bigNumberString);
+
+    await submitBid({
+      args: [12345],
+    });
   }
 
   function handleRoll(event) {
@@ -116,7 +152,12 @@ export default function Lottery(props) {
                   toggleChecked(dial.number, event);
                 }}
               />
-              <label htmlFor={`dial-${dial.number}`} className={dial.class}>
+              <label
+                htmlFor={`dial-${dial.number}`}
+                className={dial.class}
+                //  onMouseEnter={() => sound.play()}
+                //  onMouseLeave={() => sound.pause()}
+              >
                 <span>{dial.number}</span>
               </label>
             </li>

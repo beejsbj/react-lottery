@@ -1,6 +1,7 @@
 // import "./flipdown.css";
 
 import { useEffect } from "react";
+import { ethers } from "ethers";
 
 class FlipDown {
   constructor(uts, el = "flipdown", opt = {}) {
@@ -409,7 +410,7 @@ function appendChildren(parent, children) {
     parent.appendChild(el);
   });
 }
-export default function Flipdown() {
+export default function Flipdown(props) {
   let getNextResultDay = function () {
     let now = new Date();
     let dayOfTheWeek = now.getDay();
@@ -425,12 +426,18 @@ export default function Flipdown() {
     result.setMilliseconds(0);
     return result;
   };
+  const { data, isError, isLoading, isFetched } = props.useContractRead({
+    abi: props.tokenContract,
+    address: "0x0bebc62c4133ff21c4ce8593f6b2fcf56c071533",
+    functionName: "getEndTime",
+  });
 
+  const endTime = ethers.BigNumber.from(data).toNumber();
+  
+  
   useEffect(() => {
-    var startTime = new Date(getNextResultDay()).getTime() / 1000;
-    const week = 604800;
-
-    var flipdown = new FlipDown(startTime);
+   //  var flipdown = new FlipDown(endTime);
+    var flipdown = new FlipDown(endTime);
     flipdown.start();
 
     flipdown.ifEnded(function () {

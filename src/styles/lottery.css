@@ -59,6 +59,10 @@ past-card {
   border-radius: 5px;
 }
 
+bid-card input {
+  width: 100%;
+}
+
 bid-card text-content,
 bid-card .bid-form {
   display: grid;
