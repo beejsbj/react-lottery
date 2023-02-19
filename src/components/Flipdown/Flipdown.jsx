@@ -435,7 +435,9 @@ export default function Flipdown(props) {
     functionName: "getEndTime",
   });
 
-  var endTime = ethers.BigNumber.from(data).toNumber();
+  if (isFetched) {
+    var endTime = ethers.BigNumber.from(data).toNumber();
+  }
   const week = 604800;
 
   useEffect(() => {

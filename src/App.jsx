@@ -28,13 +28,13 @@ function App() {
     functionName: "pot",
   });
 
+  const [bid, setBid] = useState(0);
+
   if (!isFetched) {
     const potWei = ethers.BigNumber.from(data);
     const pot = ethers.utils.formatEther(potWei);
+    setBid(pot);
   }
-  const pot = 5;
-
-  const [bid, setBid] = useState(pot);
 
   const contractConfig = {
     addressOrName: 0x0bebc62c4133ff21c4ce8593f6b2fcf56c071533,
