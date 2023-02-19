@@ -14,6 +14,7 @@
 /* then other contextual styles */
 body {
   background-color: var(--paper);
+  /* background-image: url(../assets/stars.gif); */
   background-image: url("https://media.discordapp.net/attachments/549703400791605260/1019094503904247828/unknown.png");
 
   background-size: cover;
