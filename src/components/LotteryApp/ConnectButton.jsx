@@ -13,8 +13,6 @@ export default function ConnectButton() {
         authenticationStatus,
         mounted,
       }) => {
-        // Note: If your app doesn't use authentication, you
-        // can remove all 'authenticationStatus' checks
         const ready = mounted && authenticationStatus !== "loading";
         const connected =
           ready &&
@@ -32,7 +30,9 @@ export default function ConnectButton() {
                 userSelect: "none",
               },
             })}
-            className={connected ? "wallet-wrapper slide-in-top-bar" : "connect-wrapper"}
+            className={
+              connected ? "wallet-wrapper slide-in-top-bar" : "connect-wrapper"
+            }
           >
             {(() => {
               if (!connected) {
@@ -42,7 +42,7 @@ export default function ConnectButton() {
                     onClick={openConnectModal}
                     type="button"
                   >
-                    Connect Wallet
+                    Connect Wallet to Play!!
                   </button>
                 );
               }

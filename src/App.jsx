@@ -48,19 +48,21 @@ function App() {
       <main className="page-content">
         <section className="page-section">
           <ConnectButton />
-          {isConnected && (
-            <inner-column>
-              <h1 className="loud-voice slide-in-top">Lottery. api3</h1>
-              <Lottery bid={bid} setBid={setBid} />
-              <BidCard bid={bid} setBid={setBid} />
-              <PastWinners />
-              <RulesCard />
-              <Flipdown
-                useContractRead={useContractRead}
-                tokenContract={tokenContract}
-              />
-            </inner-column>
-          )}
+          <inner-column>
+            <h1 className="loud-voice slide-in-top">Lottery. api3</h1>
+            {isConnected && (
+              <>
+                <Lottery bid={bid} setBid={setBid} />
+                <BidCard bid={bid} setBid={setBid} />
+                <PastWinners />
+                <RulesCard />
+                <Flipdown
+                  useContractRead={useContractRead}
+                  tokenContract={tokenContract}
+                />
+              </>
+            )}
+          </inner-column>
         </section>
       </main>
       <div className="final-result hide"></div>

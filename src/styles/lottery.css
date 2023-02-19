@@ -148,7 +148,7 @@ lottery-module > * {
 lottery-module .buttons {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 lottery-module .buttons button {

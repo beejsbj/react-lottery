@@ -12,21 +12,19 @@ export default function Lottery(props) {
     src: ["/click.wav"],
   });
 
-  function buttonClickAnimation(event) {
-    let mouseX = event.nativeEvent.offsetX;
-    let mouseY = event.nativeEvent.offsetY;
-
-    event.target.style.setProperty("--mouse-y", mouseY);
-    event.target.style.setProperty("--mouse-x", mouseX);
-
-    console.log(event.target.style.getPropertyValue("--mouse-x"));
-  }
-
   useEffect(() => {
-    const buttons = document.querySelectorAll("button");
-    buttons.forEach((button) =>
-      button.addEventListener("click", buttonClickAnimation)
-    );
+    const $buttons = document.querySelectorAll("button");
+    $buttons.forEach(($button) => {
+      $button.addEventListener("click", function (event) {
+
+        let mouseX = event.offsetX;
+        let mouseY = event.offsetY;
+
+        event.target.style.setProperty("--mouse-y", mouseY);
+        event.target.style.setProperty("--mouse-x", mouseX);
+
+      });
+    });
   });
 
   var dialsArr = Array.from(Array(50).keys());
