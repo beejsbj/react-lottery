@@ -9,9 +9,15 @@
 	
 }
 
-.loud-voice {
+.booming-voice {
 	font-family: 'expose', sans-serif;
 	font-size: 6rem;
+	text-transform: capitalize;
+}
+
+.loud-voice {
+	font-family: 'expose', sans-serif;
+	font-size: 3rem;
 	text-transform: capitalize;
 }
 
@@ -50,7 +56,6 @@ p,
 li {
 	font-family: 'Luckiest Guy', cursive;
 	font-size: 24px;
-	line-height: 1R;
 	max-width: 700px;
 }
 

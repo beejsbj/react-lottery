@@ -98,25 +98,22 @@ export default function Lottery(props) {
     setDials(updatedDials);
   }
 
-  //wallet inegration
-  //
-  //
-  //
-  //   const {
-  //     data: lotteryData,
-  //     isError,
-  //     isLoading,
-  //     write: submitBid,
-  //   } = useContractWrite({
-  //     abi: tokenContract,
-  //     mode: "recklesslyUnprepared",
-  //     address: "0x0bebc62c4133ff21c4ce8593f6b2fcf56c071533",
+  
+    const {
+      data: lotteryData,
+      isError,
+      isLoading,
+      write: submitBid,
+    } = useContractWrite({
+      abi: tokenContract,
+      mode: "recklesslyUnprepared",
+      address: "0x0bebc62c4133ff21c4ce8593f6b2fcf56c071533",
 
-  //     functionName: "enter",
-  //     overrides: {
-  //       value: ethers.utils.parseEther("0.0001"),
-  //     },
-  //   });
+      functionName: "enter",
+      overrides: {
+        value: ethers.utils.parseEther("0.0001"),
+      },
+    });
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -131,16 +128,16 @@ export default function Lottery(props) {
     if (checked.length < max) {
       alert("Please select atleast 5");
     }
-    //  if (props.bid < 1) {
-    //    alert("Please Make a Bid");
-    //  }
+     if (props.bid < 1) {
+       alert("Please Make a Bid");
+     }
 
-    //  const bigNumberString = ethers.BigNumber.from(numbersString);
-    //  console.log(bigNumberString);
+     const bigNumberString = ethers.BigNumber.from(numbersString);
+     console.log(bigNumberString);
 
-    await submitBid({
-      args: [12345],
-    });
+   //  await submitBid({
+   //    args: [12345],
+   //  });
   }
 
   function handleRoll(event) {

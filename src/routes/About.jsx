@@ -3,7 +3,7 @@ export default function About() {
     <>
       <section>
         <inner-column>
-          <h1 className="loud-voice">About</h1>
+          <h1 className="booming-voice">About</h1>
         </inner-column>
       </section>
       <section>

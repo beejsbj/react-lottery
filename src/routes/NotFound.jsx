@@ -8,7 +8,7 @@ export default function NotFound() {
     <>
       <header>
         <inner-column>
-          <h1 className="loud-voice">NotFound</h1>
+          <h1 className="booming-voice">NotFound</h1>
         </inner-column>
       </header>
       <main>

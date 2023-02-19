@@ -29,6 +29,7 @@ function App() {
   });
 
   const [bid, setBid] = useState(0);
+  const [ticket, setTicket] = useState(0);
 
   if (!isFetched) {
     const potWei = ethers.BigNumber.from(data);
@@ -49,11 +50,16 @@ function App() {
         <section className="page-section">
           <ConnectButton />
           <inner-column>
-            <h1 className="loud-voice slide-in-top">Lottery. api3</h1>
+            <h1 className="booming-voice slide-in-top">Lottery. api3</h1>
             {isConnected && (
               <>
-                <Lottery bid={bid} setBid={setBid} />
-                <BidCard bid={bid} setBid={setBid} />
+                <Lottery
+                  bid={bid}
+                  setBid={setBid}
+                  ticket={ticket}
+                  setTicket={setTicket}
+                />
+                <BidCard bid={bid} ticket={ticket} setTicket={setTicket} />
                 <PastWinners />
                 <RulesCard />
                 <Flipdown
