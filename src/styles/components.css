@@ -49,10 +49,7 @@
   padding: 10px;
 }
 
-.button.outline:hover,
-.button.text:hover {
-  /*background-color: hsla(215, 100%, 88%, 0.30);*/
-}
+
 
 .button::after {
   content: "";
@@ -148,3 +145,42 @@
 .wallet-wrapper .balance {
   color: hsla(29, 85%, 52%, 1)
 }
+
+
+
+
+/* active button */
+.button {
+	overflow: hidden;
+}
+.button:before {
+	content: "";
+	position: absolute;
+	width: 0;
+	height: 0;
+	top: 50%;
+	left: 50%;
+	top: calc(var(--mouse-y) * 1px);
+	left: calc(var(--mouse-x) * 1px);
+	transform-style: flat;
+	transform: 
+		translate3d(-50%,-50%,0) 
+		rotate(
+			calc(
+				var(--mouse-y) * var(--mouse-x) * 1deg
+				)
+			);
+	background: hsla(10, 100%, 50%, .20);
+	filter: hue-rotate(calc(
+		var(--mouse-y) * var(--mouse-x) * 3deg
+		));
+	/* border-radius: 50%; */
+	transition: .2s ease;
+	z-index: 100;
+}
+
+
+.button:active::before {
+	  width: 300px;
+	  height: 300px;
+ }
