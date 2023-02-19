@@ -1,7 +1,8 @@
 // import "./flipdown.css";
 
 import { useEffect } from "react";
-import { ethers } from "ethers";
+import { BigNumber, ethers } from "ethers";
+
 
 class FlipDown {
   constructor(uts, el = "flipdown", opt = {}) {
