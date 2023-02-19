@@ -32,7 +32,7 @@ export default function ConnectButton() {
                 userSelect: "none",
               },
             })}
-            className={connected ? "wallet-wrapper" : "connect-wrapper"}
+            className={connected ? "wallet-wrapper slide-in-top-bar" : "connect-wrapper"}
           >
             {(() => {
               if (!connected) {
