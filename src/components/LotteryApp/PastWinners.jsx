@@ -7,12 +7,14 @@ export default function PastWinners() {
     <past-card class="slide-in-left">
       <h2 className="teaser-voice">past winners</h2>
       <ol>
-        {winners.map((winner, i) => (
-          <li key={i} className="attention-voice">
-            {" "}
-            {winner}{" "}
-          </li>
-        ))}
+        {winners.map((winner, i) => {
+          return (
+            <li key={i} className={i == 0 ? "loud-voice" : "attention-voice"}>
+              {" "}
+              {winner}{" "}
+            </li>
+          );
+        })}
       </ol>
     </past-card>
   );
