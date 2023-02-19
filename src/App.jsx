@@ -50,7 +50,7 @@ function App() {
         <section className="page-section">
           <ConnectButton />
           <inner-column>
-            <h1 className="booming-voice slide-in-top">Lottery. api3</h1>
+            <h1 className="booming-voice slide-in-top">Lottery</h1>
             {isConnected && (
               <>
                 <Lottery
