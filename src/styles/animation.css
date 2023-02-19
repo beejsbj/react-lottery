@@ -7,6 +7,9 @@
 .slide-in-top {
   animation: slide-in-top 0.5s cubic-bezier(0.54, -0.75, 0, 1.64) both;
 }
+.slide-in-top-bar {
+	animation: slide-in-top-bar 0.5s cubic-bezier(0.54, -0.75, 0, 1.64) both;
+ }
 .slide-in-left {
   -webkit-animation: slide-in-left 0.5s cubic-bezier(0.54, -0.75, 0, 1.64)
     backwards;
@@ -204,6 +207,16 @@ rules-card.slide-in-left {
     opacity: 1;
   }
 }
+@keyframes slide-in-top-bar {
+	0% {
+	  transform: translateY(-30px) skew(30deg);
+	  opacity: 0;
+	}
+	100% {
+	  transform: translateY(0) skew(0);
+	  opacity: 1;
+	}
+ }
 
 @keyframes slide-in-left {
   0% {
