@@ -22,6 +22,7 @@ ol {
 
 past-card ol {
   list-style-type: none;
+  gap: 20px;
 }
 
 lottery-module,
