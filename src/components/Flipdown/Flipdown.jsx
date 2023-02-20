@@ -3,7 +3,6 @@
 import { useEffect } from "react";
 import { BigNumber, ethers } from "ethers";
 
-
 class FlipDown {
   constructor(uts, el = "flipdown", opt = {}) {
     // If uts is not specified
@@ -436,9 +435,9 @@ export default function Flipdown(props) {
     functionName: "getEndTime",
   });
 
-  if (isFetched) {
-    var endTime = ethers.BigNumber.from(data).toNumber();
-  }
+  //   if (isFetched) {
+  var endTime = ethers.BigNumber.from(data).toNumber();
+  //   }
   const week = 604800;
 
   useEffect(() => {
