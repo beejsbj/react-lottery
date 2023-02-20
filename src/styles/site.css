@@ -24,7 +24,10 @@ body {
   overflow-x: hidden;
   padding-bottom: 250px;
   user-select: none;
+  cursor: url(../assets/cursor.cur), default;
+
 }
+
 @media (max-width: 925px) {
   body {
     background-size: cover;

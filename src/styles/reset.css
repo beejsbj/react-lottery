@@ -57,7 +57,7 @@ button {
     color: #ffffff;
     font-family: sans-serif;
     font-size: 1rem;
-    cursor: pointer;
+    cursor: url(../assets/pointer.cur), pointer;
     text-align: center;
     -webkit-appearance: none;
     -moz-appearance: none;
