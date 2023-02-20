@@ -1,7 +1,7 @@
 import Loading from "./Loading.jsx";
 import { useState, useEffect } from "react";
 import { Howl, Howler } from "howler";
-import { useContractWrite } from "wagmi";
+import { useContractWrite, usePrepareContractWrite } from "wagmi";
 import tokenContract from "../../contracts/lottery.json";
 import { BigNumber, ethers } from "ethers";
 
@@ -16,13 +16,11 @@ export default function Lottery(props) {
     const $buttons = document.querySelectorAll("button");
     $buttons.forEach(($button) => {
       $button.addEventListener("click", function (event) {
-
         let mouseX = event.offsetX;
         let mouseY = event.offsetY;
 
         event.target.style.setProperty("--mouse-y", mouseY);
         event.target.style.setProperty("--mouse-x", mouseX);
-
       });
     });
   });
@@ -98,22 +96,13 @@ export default function Lottery(props) {
     setDials(updatedDials);
   }
 
-  
-    const {
-      data: lotteryData,
-      isError,
-      isLoading,
-      write: submitBid,
-    } = useContractWrite({
-      abi: tokenContract,
-      mode: "recklesslyUnprepared",
-      address: "0x0bebc62c4133ff21c4ce8593f6b2fcf56c071533",
+  const { config, error } = usePrepareContractWrite({
+    address: "0x0bebc62c4133ff21c4ce8593f6b2fcf56c071533",
+    abi: tokenContract,
+    functionName: "enter",
+  });
 
-      functionName: "enter",
-      overrides: {
-        value: ethers.utils.parseEther("0.0001"),
-      },
-    });
+  const { write: submitBid } = useContractWrite(config);
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -128,16 +117,17 @@ export default function Lottery(props) {
     if (checked.length < max) {
       alert("Please select atleast 5");
     }
-     if (props.bid < 1) {
-       alert("Please Make a Bid");
-     }
 
-     const bigNumberString = ethers.BigNumber.from(numbersString);
-     console.log(bigNumberString);
+    console.log(props.ticket);
+    if (props.ticket < 1) {
+      alert("Please Make a Bid");
+    }
 
-   //  await submitBid({
-   //    args: [12345],
-   //  });
+    const bigNumberString = ethers.BigNumber.from(numbersString);
+
+    submitBid?.({
+      args: [bigNumberString, ethers.utils.parseEther("0.0001")],
+    });
   }
 
   function handleRoll(event) {
