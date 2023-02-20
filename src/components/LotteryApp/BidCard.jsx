@@ -1,4 +1,4 @@
-import { useState } from "react";
+
 
 export default function BidCard(props) {
 
@@ -26,7 +26,7 @@ export default function BidCard(props) {
 				<button className="minus button attention-voice" onClick={ticketDecrement}>
 				﹣
 				</button>
-				<p className="loud-voice heartbeat">{props.ticket}</p>
+				<p className="ticket-box loud-voice heartbeat">{props.ticket}</p>
 				<button className="plus button attention-voice" onClick={ticketIncrement}>
 				＋
 				</button>
