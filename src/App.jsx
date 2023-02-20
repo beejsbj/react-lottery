@@ -28,19 +28,15 @@ function App() {
     functionName: "pot",
   });
 
-  const [bid, setBid] = useState(0);
   const [ticket, setTicket] = useState(0);
+  var pot = 0;
 
-  if (!isFetched) {
-    const potWei = ethers.BigNumber.from(data);
-    const pot = ethers.utils.formatEther(potWei);
-    setBid(pot);
-  }
+  //   if (isFetched) {
+  const potWei = ethers.BigNumber.from(data);
+  pot = ethers.utils.formatEther(potWei);
+  //   }
 
-  const contractConfig = {
-    addressOrName: 0x0bebc62c4133ff21c4ce8593f6b2fcf56c071533,
-    contractInterface: tokenContract,
-  };
+  const [bid, setBid] = useState(pot);
 
   const { isConnected } = useAccount();
 
