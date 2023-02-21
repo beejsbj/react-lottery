@@ -22,21 +22,8 @@ import { BigNumber, ethers } from "ethers";
 import tokenContract from "./contracts/lottery.json";
 
 function App() {
-  const { data, isError, isLoading, isFetched } = useContractRead({
-    abi: tokenContract,
-    address: "0x0bebc62c4133ff21c4ce8593f6b2fcf56c071533",
-    functionName: "pot",
-  });
-
   const [ticket, setTicket] = useState(0);
-  var pot = 0;
-
-  //   if (isFetched) {
-  const potWei = ethers.BigNumber.from(data);
-  pot = ethers.utils.formatEther(potWei);
-  //   }
-
-  const [bid, setBid] = useState(pot);
+  //   const [bid, setBid] = useState(0);
 
   const { isConnected } = useAccount();
 
@@ -49,13 +36,13 @@ function App() {
             <h1 className="booming-voice slide-in-top">Lottery</h1>
             {isConnected && (
               <>
-                <Lottery
-                  bid={bid}
-                  setBid={setBid}
+                <Lottery ticket={ticket} setTicket={setTicket} />
+                <BidCard
+                  // bid={bid}
+                  // setBid={setBid}
                   ticket={ticket}
                   setTicket={setTicket}
                 />
-                <BidCard bid={bid} ticket={ticket} setTicket={setTicket} />
                 <PastWinners />
                 <RulesCard />
                 <Flipdown
