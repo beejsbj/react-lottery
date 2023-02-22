@@ -3,6 +3,8 @@ import tokenContract from "../../contracts/lottery.json";
 import { BigNumber, ethers } from "ethers";
 
 export default function BidCard(props) {
+  console.log("bid card start");
+
   const { data, isError, isLoading, isFetched } = useContractRead({
     abi: tokenContract,
     address: "0x0bebc62c4133ff21c4ce8593f6b2fcf56c071533",
@@ -12,7 +14,9 @@ export default function BidCard(props) {
   const potWei = ethers.BigNumber.from(data);
   const pot = ethers.utils.formatEther(potWei);
 
-//   props.setBid(pot);
+  console.log("bid card end");
+
+  //   props.setBid(pot);
 
   function ticketDecrement() {
     var ticket = props.ticket - 1;

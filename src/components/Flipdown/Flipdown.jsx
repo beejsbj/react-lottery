@@ -429,6 +429,8 @@ export default function Flipdown(props) {
     return result;
   };
 
+  console.log("lottery flipcard start");
+
   const { data, isError, isLoading, isFetched } = props.useContractRead({
     abi: props.tokenContract,
     address: "0x0bebc62c4133ff21c4ce8593f6b2fcf56c071533",
@@ -438,17 +440,18 @@ export default function Flipdown(props) {
   //   if (isFetched) {
   var endTime = ethers.BigNumber.from(data).toNumber();
   //   }
+  console.log("lottery flipcard end");
+
   const week = 604800;
-  console.log(endTime)
 
   useEffect(() => {
     var flipdown = new FlipDown(endTime);
     flipdown.start();
 
-   //  flipdown.ifEnded(function () {
-   //    endTime += week;
-   //    flipdown.start(endTime);
-   //  });
+    //  flipdown.ifEnded(function () {
+    //    endTime += week;
+    //    flipdown.start(endTime);
+    //  });
   }, []);
 
   return <div id="flipdown" className="flipdown"></div>;

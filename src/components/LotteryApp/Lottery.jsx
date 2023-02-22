@@ -96,13 +96,15 @@ export default function Lottery(props) {
     setDials(updatedDials);
   }
 
-//   const { config, error } = usePrepareContractWrite({
-//     address: "0x0bebc62c4133ff21c4ce8593f6b2fcf56c071533",
-//     abi: tokenContract,
-//     functionName: "enter",
-//   });
+  console.log("lottery big number start");
 
-//   const { write: submitBid } = useContractWrite(config);
+  //   const { config, error } = usePrepareContractWrite({
+  //     address: "0x0bebc62c4133ff21c4ce8593f6b2fcf56c071533",
+  //     abi: tokenContract,
+  //     functionName: "enter",
+  //   });
+
+  //   const { write: submitBid } = useContractWrite(config);
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -130,8 +132,11 @@ export default function Lottery(props) {
     });
   }
 
+  console.log("lottery big number end");
+
   function handleRoll(event) {
     event.preventDefault();
+    event.target.style.pointerEvents = "none";
     resetDials();
     const updatedDials = dials.map((dial) => {
       dial.class =
@@ -139,8 +144,11 @@ export default function Lottery(props) {
       return dial;
     });
     setDials(updatedDials);
-    setTimeout(removeRollClass, 1200);
     setTimeout(rollChecked, 1100);
+    setTimeout(() => {
+      removeRollClass();
+      event.target.style.pointerEvents = "auto";
+    }, 1200);
   }
 
   return (
