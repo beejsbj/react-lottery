@@ -439,15 +439,16 @@ export default function Flipdown(props) {
   var endTime = ethers.BigNumber.from(data).toNumber();
   //   }
   const week = 604800;
+  console.log(endTime)
 
   useEffect(() => {
     var flipdown = new FlipDown(endTime);
     flipdown.start();
 
-    flipdown.ifEnded(function () {
-      endTime += week;
-      flipdown.start(endTime);
-    });
+   //  flipdown.ifEnded(function () {
+   //    endTime += week;
+   //    flipdown.start(endTime);
+   //  });
   }, []);
 
   return <div id="flipdown" className="flipdown"></div>;

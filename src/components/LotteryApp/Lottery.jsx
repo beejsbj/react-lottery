@@ -96,13 +96,13 @@ export default function Lottery(props) {
     setDials(updatedDials);
   }
 
-  const { config, error } = usePrepareContractWrite({
-    address: "0x0bebc62c4133ff21c4ce8593f6b2fcf56c071533",
-    abi: tokenContract,
-    functionName: "enter",
-  });
+//   const { config, error } = usePrepareContractWrite({
+//     address: "0x0bebc62c4133ff21c4ce8593f6b2fcf56c071533",
+//     abi: tokenContract,
+//     functionName: "enter",
+//   });
 
-  const { write: submitBid } = useContractWrite(config);
+//   const { write: submitBid } = useContractWrite(config);
 
   async function handleSubmit(event) {
     event.preventDefault();
