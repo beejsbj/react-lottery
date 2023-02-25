@@ -5,14 +5,18 @@ import { BigNumber, ethers } from "ethers";
 export default function BidCard(props) {
   console.log("bid card start");
 
-  const { data, isError, isLoading, isFetched } = useContractRead({
+  const { data, error, isError, isLoading, isFetched } = useContractRead({
     abi: tokenContract,
     address: "0x0bebc62c4133ff21c4ce8593f6b2fcf56c071533",
     functionName: "pot",
   });
 
-  const potWei = ethers.BigNumber.from(data);
-  const pot = ethers.utils.formatEther(potWei);
+  let pot = "...";
+  console.log(data, error, isError, isLoading, isFetched);
+  if (isFetched && !isError && !isLoading) {
+    const potWei = ethers.BigNumber.from(data);
+    pot = ethers.utils.formatEther(potWei);
+  }
 
   console.log("bid card end");
 

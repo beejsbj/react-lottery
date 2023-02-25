@@ -1,5 +1,6 @@
 // import "./flipdown.css";
-
+import tokenContract from "../../contracts/lottery.json";
+import { useContractRead } from "wagmi";
 import { useEffect } from "react";
 import { BigNumber, ethers } from "ethers";
 
@@ -431,15 +432,17 @@ export default function Flipdown(props) {
 
   console.log("lottery flipcard start");
 
-  const { data, isError, isLoading, isFetched } = props.useContractRead({
-    abi: props.tokenContract,
+  const { data,error, isError, isLoading, isFetched } = useContractRead({
+    abi: tokenContract,
     address: "0x0bebc62c4133ff21c4ce8593f6b2fcf56c071533",
     functionName: "getEndTime",
   });
 
-  //   if (isFetched) {
-  var endTime = ethers.BigNumber.from(data).toNumber();
-  //   }
+  let endTime = 0;
+  console.log(data, error, isError, isLoading, isFetched);
+  if (isFetched && !isError && !isLoading) {
+    endTime = ethers.BigNumber.from(data).toNumber();
+  }
   console.log("lottery flipcard end");
 
   const week = 604800;

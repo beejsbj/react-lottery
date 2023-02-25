@@ -1,6 +1,10 @@
 import { ConnectButton as MetamaskButton } from "@rainbow-me/rainbowkit";
 import imgUrl from "../../assets/metamask-bw.png";
 
+
+
+
+
 export default function ConnectButton() {
 	const nbsp = "\u00A0";
   return (

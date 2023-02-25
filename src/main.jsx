@@ -1,8 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
-import "@rainbow-me/rainbowkit/styles.css";
-
+//wallet import
 import {
   getDefaultWallets,
   RainbowKitProvider,
@@ -10,13 +9,8 @@ import {
 } from "@rainbow-me/rainbowkit";
 
 import { configureChains, createClient, WagmiConfig } from "wagmi";
-import {
-  mainnet,
-  polygon,
-  optimism,
-  arbitrum,
-  polygonMumbai,
-} from "wagmi/chains";
+import { polygonMumbai } from "wagmi/chains";
+
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
 
@@ -24,11 +18,12 @@ import { publicProvider } from "wagmi/providers/public";
 import App from "./App";
 
 //style import
+import "@rainbow-me/rainbowkit/styles.css";
 // import "./styles/site.css";
 
 //wagmi
 const { chains, provider } = configureChains(
-  [mainnet, polygon, polygonMumbai, optimism, arbitrum],
+  [polygonMumbai],
   [publicProvider()]
 );
 
@@ -45,11 +40,7 @@ const wagmiClient = createClient({
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <WagmiConfig client={wagmiClient}>
-    <RainbowKitProvider
-      coolMode
-      theme={midnightTheme()}
-      chains={chains}
-    >
+    <RainbowKitProvider coolMode theme={midnightTheme()} chains={chains}>
       <App />
     </RainbowKitProvider>
   </WagmiConfig>

@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "host": "vite --host",
     "build": "vite build",
     "preview": "vite build && vite preview",
     "deploy": "vite build && cp dist/index.html dist/200.html && surge dist"
