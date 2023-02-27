@@ -1,7 +1,11 @@
-import Loading from "./Loading.jsx";
+import ResetLottery from "./ResetLottery";
 import { useState, useEffect } from "react";
 import { Howl, Howler } from "howler";
-import { useContractWrite, usePrepareContractWrite } from "wagmi";
+import {
+  useContractWrite,
+  usePrepareContractWrite,
+  useWaitForTransaction,
+} from "wagmi";
 import tokenContract from "../../contracts/lottery.json";
 import { ethers } from "ethers";
 import { useStore } from "../../zustand/lotteryStore.jsx";
@@ -16,34 +20,43 @@ export default function Lottery(props) {
       checked: false,
     };
   });
+  const [dials, setDials] = useState(dialsArr);
 
   const sound = new Howl({
     src: ["/click.wav"],
   });
 
   const selectedNumbers = useStore((state) => state.numbers.selected);
-  const tickets = useStore((state) => state.tickets.amount);
+  const tickets = useStore((state) => state.tickets);
   const setBuyTicket = useStore((state) => state.setBuyTicket);
   const setSelectedNumbers = useStore((state) => state.setSelectedNumbers);
-  const [dials, setDials] = useState(dialsArr);
-
-  console.log(tickets);
+  const hasLotteryEnded = useStore((state) => state.hasLotteryEnded);
+  const refreshPot = useStore((state) => state.refreshPot);
 
   const {
     config,
     error: prepareError,
     isError: isPrepareError,
+    isSuccess: isPrepareSuccess,
   } = usePrepareContractWrite({
     abi: tokenContract,
-    address: "0xd6B0434a28BE3d560EedbF3319d5b498E1d7b000",
+    address: "0x3E1Eb24ef031002E41d173BE2B1c7D04DF67b9d2",
     functionName: "enter",
-    args: [selectedNumbers, tickets],
+    args: [selectedNumbers, tickets.amount],
     overrides: {
-      value: ethers.utils.parseEther(0.001 * tickets + ""),
+      value: ethers.utils.parseEther(0.001 * tickets.amount + ""),
     },
   });
 
-  const { data, isLoading, isSuccess, write } = useContractWrite(config);
+  const { data, write } = useContractWrite(config);
+
+  const waitForTransaction = useWaitForTransaction({
+    hash: data?.hash,
+    confirmations: 1,
+    onSuccess() {
+      refreshPot();
+    },
+  });
 
   function maxLimit() {
     const checked = dials.filter((dial) => dial.checked);
@@ -107,7 +120,7 @@ export default function Lottery(props) {
   }
 
   //   const { config } = usePrepareContractWrite({
-  //     address: "0xd6B0434a28BE3d560EedbF3319d5b498E1d7b000",
+  //     address: "0x3E1Eb24ef031002E41d173BE2B1c7D04DF67b9d2",
   //     abi: tokenContract,
   //     functionName: "enter",
   //     args: [
@@ -128,15 +141,14 @@ export default function Lottery(props) {
 
   async function handleSubmit(event) {
     event.preventDefault();
-
+    console.log(selectedNumbers.length);
     if (selectedNumbers.length < max) {
       // alert("Please select atleast 5");
       // return;
-      console.log(selectedNumbers.length);
     }
 
     console.log(tickets);
-    tickets.buyTicket();
+    tickets.buyTicket.func();
   }
 
   async function handleRoll(event) {
@@ -166,11 +178,14 @@ export default function Lottery(props) {
   }, [dials]);
 
   useEffect(() => {
-    setBuyTicket(write);
-  }, [write]);
+    setBuyTicket(data, write);
+  }, [isPrepareSuccess, data]);
 
   return (
-    <lottery-module class="slide-in-right">
+    <lottery-module
+      class={`${hasLotteryEnded ? "lottery-ended" : "slide-in-right"}`}
+    >
+      <ResetLottery />
       <form>
         <ul>
           {dials.map((dial) => (

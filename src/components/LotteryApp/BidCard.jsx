@@ -13,7 +13,7 @@ export default function BidCard(props) {
   const { data, error, isError, isLoading, isFetched, refetch } =
     useContractRead({
       abi: tokenContract,
-      address: "0xd6B0434a28BE3d560EedbF3319d5b498E1d7b000",
+      address: "0x3E1Eb24ef031002E41d173BE2B1c7D04DF67b9d2",
       functionName: "pot",
     });
 
@@ -22,21 +22,34 @@ export default function BidCard(props) {
       const potWei = BigNumber.from(data);
       setPot({
         amount: ethers.utils.formatEther(potWei),
-        refreshPot: refetch,
+        refresh: refetch,
       });
     } else if (isError) {
       setErrors({ errors: [error] });
     }
   }, []);
+  let potUpdateClass = "";
+  useEffect(() => {
+    potUpdateClass = "big-heartbeat";
+    setTimeout(() => {
+      potUpdateClass = "";
+    }, 1000);
+  }, [pot]);
 
   return (
     <bid-card class="slide-in-left">
       <TicketCard />
       <text-content>
         <h2 className="teaser-voice">current bid</h2>
-        <p htmlFor="user-bid" id="current-bid" className="loud-voice heartbeat">
-          Ξ {pot}
-        </p>
+        {
+          <p
+            htmlFor="user-bid"
+            id="current-bid"
+            className={`loud-voice heartbeat ${potUpdateClass}`}
+          >
+            Ξ {pot}
+          </p>
+        }
       </text-content>
     </bid-card>
   );

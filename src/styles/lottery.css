@@ -387,3 +387,24 @@ lottery-module ul li .dials:checked + label::before {
 	aspect-ratio: 1 / 1;
 	width: 50px;
 }
+
+
+/* ended lottery
+ */
+.lottery-ended {
+  position: relative;
+}
+.lottery-ended form {
+	pointer-events: none;
+	filter: grayscale(0.5) saturate(0.5) opacity(0.8) contrast(0.5) brightness(0.5) blur(0.5px) drop-shadow(0 0 0.5px black) ;
+}
+
+.reset-lottery{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%) rotate(-10deg);
+	font-size: clamp(2.3rem, 7vw, 5rem);
+	border-radius: 0;
+	z-index: 1;
+}

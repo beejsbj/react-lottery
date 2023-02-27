@@ -49,3 +49,7 @@ video {
   z-index: -10;
   mix-blend-mode: multiply;
 }
+
+.hide {
+  display: none;
+}

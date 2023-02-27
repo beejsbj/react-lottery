@@ -12,31 +12,55 @@ import { useEffect } from "react";
 export const useStore = create((set, get) => ({
   pot: {
     amount: 0,
-    refreshPot: null, // function to refresh the Pot
+    refresh: null, // function to refresh the Pot
   },
   tickets: {
     amount: 1,
-    buyTicket: null,
+    buyTicket: {
+      transaction: null,
+      func: null,
+    },
   },
   numbers: {
     selected: [],
   },
   endTime: {
     unixTimeStamp: 0,
-    refreshEndTime: null, // function to refresh the End Time
+    refresh: null, // function to refresh the End Time
   },
   errors: [],
-
+  hasLotteryEnded: false,
   setErrors: (errors) => set({ errors: errors }),
 
   setPot: (updatedPot) => set({ pot: updatedPot }),
+  refreshPot: async () => {
+    const response = await get().pot.refresh();
+    set({
+      pot: {
+        amount: ethers.utils.formatEther(BigNumber.from(response.data)),
+        refresh: get().pot.refresh,
+      },
+    });
+  },
+
   setEndTime: (updatedEndTime) => set({ endTime: updatedEndTime }),
+
+  setHasLotteryEnded: (hasLotteryEnded) =>
+    set({ hasLotteryEnded: hasLotteryEnded }),
 
   setSelectedNumbers: (numbers) => set({ numbers: { selected: numbers } }),
 
   setTicketAmount: (amount) => set({ tickets: { amount: amount } }),
 
   // write contract data for submitting bid
-  setBuyTicket: (buyTicketFunction) =>
-    set({ tickets: { amount: 1, buyTicket: buyTicketFunction } }),
+  setBuyTicket: (transaction, func) =>
+    set({
+      tickets: {
+        amount: get().tickets.amount,
+        buyTicket: {
+          transaction,
+          func,
+        },
+      },
+    }),
 }));
