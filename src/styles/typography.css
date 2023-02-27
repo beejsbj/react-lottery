@@ -55,6 +55,15 @@ li {
 	max-width: 700px;
 }
 
+@media (min-width: 600px) and (max-width: 925px) {
+	.calm-voice,
+p,
+li {
+	font-size: 18px;
+
+}
+}
+
 :is(.calm-voice, p, li) em {
 	font-style: italic;
 }

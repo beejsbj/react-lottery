@@ -3,29 +3,13 @@ import { useState, useEffect } from "react";
 import { Howl, Howler } from "howler";
 import { useContractWrite, usePrepareContractWrite } from "wagmi";
 import tokenContract from "../../contracts/lottery.json";
-import { BigNumber, ethers } from "ethers";
+import { ethers } from "ethers";
+import { useStore } from "../../zustand/lotteryStore.jsx";
 
 export default function Lottery(props) {
   const max = 5; //total number of dials to check
 
-  var sound = new Howl({
-    src: ["/click.wav"],
-  });
-
-  useEffect(() => {
-    const $buttons = document.querySelectorAll("button");
-    $buttons.forEach(($button) => {
-      $button.addEventListener("click", function (event) {
-        let mouseX = event.offsetX;
-        let mouseY = event.offsetY;
-
-        event.target.style.setProperty("--mouse-y", mouseY);
-        event.target.style.setProperty("--mouse-x", mouseX);
-      });
-    });
-  });
-
-  var dialsArr = Array.from(Array(50).keys());
+  let dialsArr = Array.from(Array(50).keys());
   dialsArr = dialsArr.map((dial) => {
     return {
       number: dial + 1,
@@ -33,7 +17,33 @@ export default function Lottery(props) {
     };
   });
 
+  const sound = new Howl({
+    src: ["/click.wav"],
+  });
+
+  const selectedNumbers = useStore((state) => state.numbers.selected);
+  const tickets = useStore((state) => state.tickets.amount);
+  const setBuyTicket = useStore((state) => state.setBuyTicket);
+  const setSelectedNumbers = useStore((state) => state.setSelectedNumbers);
   const [dials, setDials] = useState(dialsArr);
+
+  console.log(tickets);
+
+  const {
+    config,
+    error: prepareError,
+    isError: isPrepareError,
+  } = usePrepareContractWrite({
+    abi: tokenContract,
+    address: "0xd6B0434a28BE3d560EedbF3319d5b498E1d7b000",
+    functionName: "enter",
+    args: [selectedNumbers, tickets],
+    overrides: {
+      value: ethers.utils.parseEther(0.001 * tickets + ""),
+    },
+  });
+
+  const { data, isLoading, isSuccess, write } = useContractWrite(config);
 
   function maxLimit() {
     const checked = dials.filter((dial) => dial.checked);
@@ -70,8 +80,8 @@ export default function Lottery(props) {
 
   function getRndIntArr() {
     const numbers = [];
-    for (var i = 0; i < max; i++) {
-      var randomNum = Math.floor(Math.random() * dials.length);
+    for (let i = 0; i < max; i++) {
+      let randomNum = Math.floor(Math.random() * dials.length);
       while (numbers.includes(randomNum)) {
         randomNum = Math.floor(Math.random() * dials.length);
       }
@@ -96,53 +106,51 @@ export default function Lottery(props) {
     setDials(updatedDials);
   }
 
-  console.log("lottery big number start");
-
-  //   const { config, error } = usePrepareContractWrite({
-  //     address: "0x0bebc62c4133ff21c4ce8593f6b2fcf56c071533",
+  //   const { config } = usePrepareContractWrite({
+  //     address: "0xd6B0434a28BE3d560EedbF3319d5b498E1d7b000",
   //     abi: tokenContract,
   //     functionName: "enter",
+  //     args: [
+  //       dials.filter((dial) => dial.checked).map((dial) => dial.number),
+  //       props.ticket,
+  //     ],
+  //     overrides: {
+  //       value: ethers.utils.parseEther(0.001 * props.ticket + ""),
+  //     },
   //   });
 
-  //   const { write: submitBid } = useContractWrite(config);
+  //   const { data, write } = useContractWrite(config);
+
+  //   const { isSuccess, error } = useWaitForTransaction({
+  //     confirmations: 1,
+  //     hash: data?.hash,
+  //   });
 
   async function handleSubmit(event) {
     event.preventDefault();
-    const checked = dials.filter((dial) => dial.checked);
 
-    var numbersString = "";
-
-    checked.forEach((dial) => {
-      numbersString += dial.number;
-    });
-
-    if (checked.length < max) {
-      alert("Please select atleast 5");
+    if (selectedNumbers.length < max) {
+      // alert("Please select atleast 5");
+      // return;
+      console.log(selectedNumbers.length);
     }
 
-    console.log(props.ticket);
-    if (props.ticket < 1) {
-      alert("Please Make a Bid");
-    }
-
-    const bigNumberString = ethers.BigNumber.from(numbersString);
-
-    submitBid?.({
-      args: [bigNumberString, ethers.utils.parseEther("0.0001")],
-    });
+    console.log(tickets);
+    tickets.buyTicket();
   }
 
-  console.log("lottery big number end");
-
-  function handleRoll(event) {
+  async function handleRoll(event) {
     event.preventDefault();
+
     event.target.style.pointerEvents = "none";
     resetDials();
+
     const updatedDials = dials.map((dial) => {
       dial.class =
         dial.number % 2 == 0 ? "rotate-center" : "rotate-center-reverse";
       return dial;
     });
+
     setDials(updatedDials);
     setTimeout(rollChecked, 1100);
     setTimeout(() => {
@@ -150,6 +158,16 @@ export default function Lottery(props) {
       event.target.style.pointerEvents = "auto";
     }, 1200);
   }
+
+  useEffect(() => {
+    setSelectedNumbers(
+      dials.filter((dial) => dial.checked).map((dial) => dial.number)
+    );
+  }, [dials]);
+
+  useEffect(() => {
+    setBuyTicket(write);
+  }, [write]);
 
   return (
     <lottery-module class="slide-in-right">

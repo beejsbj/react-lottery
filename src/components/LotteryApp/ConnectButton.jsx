@@ -1,12 +1,8 @@
 import { ConnectButton as MetamaskButton } from "@rainbow-me/rainbowkit";
 import imgUrl from "../../assets/metamask-bw.png";
 
-
-
-
-
 export default function ConnectButton() {
-	const nbsp = "\u00A0";
+  const nbsp = "\u00A0";
   return (
     <MetamaskButton.Custom>
       {({
@@ -47,6 +43,7 @@ export default function ConnectButton() {
                     onClick={openConnectModal}
                     type="button"
                   >
+                    {" "}
                     Connect{nbsp}Wallet{nbsp}to{nbsp}Play!!
                   </button>
                 );

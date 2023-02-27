@@ -29,8 +29,8 @@ past-card ol {
 
 rules-card {
   display: grid;
-  grid-row: 2/3;
-  gap: 20px;
+  grid-row: 2 / 3;
+  gap: 30px;
   background-color: hsla(60, 100%, 100%, 1);
   /*white*/
   padding: 20px;
@@ -38,6 +38,16 @@ rules-card {
   /* border-radius: 5px; */
 }
 
+rules-card ol {
+	display: grid;
+  gap: 15px;
+  list-style-position: inside;
+}
+rules-card li::marker {
+	color: var(--shade);
+
+
+}
 rules-card h2 {
   text-align: center;
   font-size: 2.5rem;
